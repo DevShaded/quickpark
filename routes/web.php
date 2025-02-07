@@ -1,8 +1,7 @@
 <?php
 
+use App\Http\Controllers\ParkingController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
-Route::get('/', function () {
-    return Inertia::render('Index');
-});
+Route::get('/', [ParkingController::class, 'index'])->name('home');
+Route::post('/park', [ParkingController::class, 'store'])->name('park');
