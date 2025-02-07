@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\ParkingAssignment;
+use App\Models\ParkingSlot;
+use App\Models\Vehicle;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,11 +14,23 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        $vehicles = Vehicle::factory(10)->create();
+        $slots = ParkingSlot::factory(20)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        foreach ($vehicles as $vehicle) {
+            // Check if there is an available slot
+            $availableSlot = $slots->where('status', 'available')->random();
+
+            if ($availableSlot) {
+                ParkingAssignment::create([
+                    'license_plate' => $vehicle->license_plate,
+                    'slot_id' => $availableSlot->id,
+                    'assigned_at' => now(),
+                    'expires_at' => now()->addDays(rand(1, 7)),
+                ]);
+
+                $availableSlot->update(['status' => 'occupied']);
+            }
+        }
     }
 }
