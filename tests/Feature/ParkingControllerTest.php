@@ -24,7 +24,7 @@ class ParkingControllerTest extends TestCase
 
         $response->assertRedirect(route('home'));
         $response->assertSessionHas('success', function ($msg) {
-            return str_contains($msg, 'Kjøretøyet kan nå bli parkert på');
+            return str_contains($msg, 'Kjøretøyet kan nå bli parkert på ' . ParkingSlot::first()->slot_number . '.');
         });
     }
 
