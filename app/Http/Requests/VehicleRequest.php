@@ -10,7 +10,6 @@ class VehicleRequest extends FormRequest
     {
         return [
             'license_plate' => ['required', 'regex:/[A-Z]{2}[0-9]{5}/'],
-            'registered_at' => ['required', 'date'],
         ];
     }
 
