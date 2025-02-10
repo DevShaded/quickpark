@@ -3,7 +3,6 @@
 namespace App\Actions\Parking;
 
 use App\Enums\ParkingSlotStatus;
-use App\Http\Requests\VehicleRequest;
 use App\Models\ParkingSlot;
 use App\Models\Vehicle;
 use Carbon\Carbon;

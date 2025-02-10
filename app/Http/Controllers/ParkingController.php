@@ -7,9 +7,6 @@ use App\Enums\ParkingSlotStatus;
 use App\Http\Requests\VehicleRequest;
 use App\Http\Resources\ParkingSlotResource;
 use App\Models\ParkingSlot;
-use App\Models\Vehicle;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Inertia\Response;
 
