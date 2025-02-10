@@ -15,7 +15,7 @@ class ParkingController extends Controller
     public function index(): Response
     {
         // Get all available parking slots and cache remember for 1 minute
-        $parkingSlots = cache()->remember('parking_slots', 1, function () {
+        $parkingSlots = cache()->remember('parking_slots', 60, function () {
             return ParkingSlotResource::collection(
                 ParkingSlot::where('status', ParkingSlotStatus::AVAILABLE)->get()
             );
