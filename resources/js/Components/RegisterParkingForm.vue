@@ -62,6 +62,7 @@ const submitForm = () => {
                         type="text"
                         v-model="form.license_plate"
                         @input="formatLicensePlate"
+                        pattern="[A-Z]{2}\s?\d{5}"
                         placeholder="AB 12345"
                         class="placeholder-center w-full border-none text-center text-4xl font-bold uppercase text-black placeholder-gray-500 outline-none focus:ring-0"
                         maxlength="8"
