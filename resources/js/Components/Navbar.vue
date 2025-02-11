@@ -8,6 +8,10 @@ const mobileNavOpen = ref(false);
 // Menu items array to populate both desktop and mobile links
 const menuItems = ref([
     {
+        name: "Hjem",
+        url: "/",
+    },
+    {
         name: "Trenger Hjelp?",
         url: "/help",
     },
@@ -114,7 +118,7 @@ const menuItems = ref([
                                     clip-rule="evenodd"
                                 />
                             </svg>
-                            <span>Company</span>
+                            <span>QuickPark</span>
                         </a>
                         <button
                             @click="mobileNavOpen = false"
@@ -136,14 +140,14 @@ const menuItems = ref([
                     </div>
                     <div class="h-px bg-gray-200/75 dark:bg-gray-700/75"></div>
                     <nav class="flex flex-col gap-2 px-6 py-5">
-                        <a
+                        <Link
                             v-for="item in menuItems"
                             :key="item.name"
                             :href="item.url"
                             class="py-1 text-sm font-semibold text-gray-900 hover:text-blue-600 dark:text-gray-100 dark:hover:text-blue-400"
                         >
                             <span>{{ item.name }}</span>
-                        </a>
+                        </Link>
                     </nav>
                 </nav>
             </Transition>
