@@ -3,16 +3,11 @@ import ParkingSlots from "@/Components/ParkingSlots.vue";
 import DefaultLayout from "@/Layouts/DefaultLayout.vue";
 import RegisterParkingForm from "@/Components/RegisterParkingForm.vue";
 
-export interface Data {
-    availableParkingSlots: number;
-    parkingSlots?: (ParkingSlotsEntity)[] | null;
-}
 export interface ParkingSlotsEntity {
     id: number;
     slot_number: string;
     status: string;
 }
-
 
 defineProps<{
     availableParkingSlots: number;
