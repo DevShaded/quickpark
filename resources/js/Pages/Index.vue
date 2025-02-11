@@ -18,7 +18,7 @@ defineProps<{
 </script>
 
 <template>
-    <DefaultLayout>
+    <DefaultLayout title="Registrer bilen din!" description="Registrer bilen din for parkering!">
         <section class="text-center my-12">
             <h1 class="text-2xl md:text-4xl font-semibold text-gray-900">Registerer din bil for parkering!</h1>
             <p class="text-lg text-gray-600">Fyll i ditt registreringsnummer nedenfor!</p>

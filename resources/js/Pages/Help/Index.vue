@@ -23,7 +23,7 @@ const faqs = ref([
 </script>
 
 <template>
-    <DefaultLayout>
+    <DefaultLayout description="ds" title="fd">
         <div
             class="container mx-auto space-y-16 px-4 py-16 lg:flex lg:justify-between lg:gap-8 lg:space-y-0 lg:px-8 lg:py-32 xl:max-w-7xl"
         >
