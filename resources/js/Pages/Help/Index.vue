@@ -19,11 +19,6 @@ const faqs = ref([
         answer:
             'Bare legg til et nytt registreringsnummer i skjemaet og send inn.',
     },
-    {
-        question: 'Are the updates free for life?',
-        answer:
-            'Etiam egestas fringilla enim, id convallis lectus laoreet at. Fusce purus nisi, gravida sed consectetur ut, interdum quis nisi. Quisque egestas nisl id lectus facilisis scelerisque.',
-    },
 ]);
 </script>
 
