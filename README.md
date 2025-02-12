@@ -50,6 +50,16 @@ cp .env.example .env
 ```
 11. Visit the application in your browser at `http://localhost`
 
+
+### Accessing the Database
+- To access the database. Run the following command
+```bash
+./vendor/bin/sail artisan mysql
+```
+```
+mysql> use <replace me with database name from .env>;
+```
+
 ## Usage
 - Register a new license number from a car on the front page. License numbers are in the format `AB 12345`.
 - After submitting the form, you will assigned a parking spot number that will be shown in a green box under the form.
