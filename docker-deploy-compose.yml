@@ -1,0 +1,116 @@
+version: '3.8'
+
+services:
+  # PHP 8.4 container with required extensions
+  php:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: php:8.4-fpm
+    container_name: php
+    volumes:
+      - .:/var/www/html
+    networks:
+      - backend
+    environment:
+      - PHP_MEMORY_LIMIT=512M
+    depends_on:
+      - mysql
+      - redis
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000"]
+      interval: 30s
+      retries: 3
+
+  # Nginx container
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf  # Custom Nginx config
+      - .:/var/www/html  # Mount project files to Nginx
+    networks:
+      - backend
+    depends_on:
+      - php
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost"]
+      interval: 30s
+      retries: 3
+
+  # MySQL container
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - backend
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-p${DB_PASSWORD}"]
+      interval: 30s
+      retries: 3
+
+  # Redis container
+  redis:
+    image: redis:alpine
+    container_name: redis
+    volumes:
+      - redis_data:/data
+    networks:
+      - backend
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      retries: 3
+
+  # Laravel Queue Worker (background worker)
+  queue:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: php:8.4-fpm
+    container_name: laravel-queue
+    command: php /var/www/html/artisan queue:work --daemon
+    volumes:
+      - .:/var/www/html
+    networks:
+      - backend
+    depends_on:
+      - php
+      - mysql
+      - redis
+
+  # SSR Server (using Node.js v20.x for server-side rendering)
+  ssr:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: node:20
+    container_name: ssr-server
+    command: ["node", "ecosystem.config.js"]
+    ports:
+      - "13714:13714"  # Expose SSR port to the host
+    volumes:
+      - .:/var/www/html  # Ensure all files (including package.json) are copied
+    networks:
+      - backend
+    depends_on:
+      - php
+
+networks:
+  backend:
+    driver: bridge
+
+volumes:
+  mysql_data:
+    driver: local
+  redis_data:
+    driver: local
