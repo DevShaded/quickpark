@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Middleware\HandleInertiaRequests;
+use App\Jobs\DeleteExpiredParkingAssignmentsJob;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -15,6 +16,9 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->web(append: [
             HandleInertiaRequests::class,
         ]);
+    })
+    ->withSchedule(function ($schedule) {
+        $schedule->job(new DeleteExpiredParkingAssignmentsJob)->everyTwoHours();
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
