@@ -9,7 +9,7 @@ class VehicleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'license_plate' => ['required', 'regex:/[A-Z]{2}[0-9]{5}/'],
+            'license_plate' => ['required', 'regex:/[A-Z]{2}[0-9]{5}/', 'max:7', 'unique:vehicles,license_plate'],
         ];
     }
 
