@@ -3,8 +3,7 @@
 QuickPark is a parking registration system that allows users to register their vehicles and park them in a parking lot. The system is designed to be user-friendly and easy to use, with a simple interface that allows users to quickly register their vehicles and park them in the lot.
 
 ## Requirements
-- [Docker](https://www.docker.com/)
-- [Docker Compose](https://docs.docker.com/compose/)
+- [Docker Desktop](https://www.docker.com/products/docker-desktop)
 - [PHP](https://www.php.net/)
 - [Composer](https://getcomposer.org/)
 
